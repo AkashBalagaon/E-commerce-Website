@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+    <link rel="stylesheet" href="style2.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="E-CommerceWebsite.html">Home</a></li>
+                <li><a href="cart.html">Cart</a></li>
+                <li><a href="login.html">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="cart">
+        <h2>Your Cart</h2>
+        <div id="cart-container"></div>
+        <button onclick="checkout()">Proceed to Checkout</button>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 E-commerce Website</p>
+    </footer>
+
+    <script>
+        function displayCart() {
+    const container = document.getElementById('cart-container');
+    container.innerHTML = '';
+    cart.forEach((product, index) => {
+        const productRow = document.createElement('div');
+        productRow.className = 'cart-item';
+        productRow.innerHTML = `
+            <h3>${product.name}</h3>
+            <p>$${product.price}</p>
+            <button onclick="removeFromCart(${index})">Remove</button>
+        `;
+        container.appendChild(productRow);
+    });
+}
+
+function removeFromCart(index) {
+    cart.splice(index, 1);
+    updateCartCount();
+    displayCart();
+}
+
+function checkout() {
+    alert('Proceeding to checkout');
+    // Here you would handle payment integration, but for simplicity, we'll just show an alert.
+}
+
+// Display cart items when the page loads
+displayCart();
+
+    </script>
+</body>
+</html>

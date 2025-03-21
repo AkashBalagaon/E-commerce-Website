@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Listing</title>
+    <link rel="stylesheet" href="style2.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="E-CommerceWebsite.html">Home</a></li>
+                <li><a href="cart.html">Cart (<span id="cart-count">0</span>)</a></li>
+                <li><a href="Login.html">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="filters">
+        <h3>Filters</h3>
+        <label for="category">Category:</label>
+        <select id="category" onchange="filterProducts()">
+            <option value="all">All</option>
+            <option value="electronics">Electronics</option>
+            <option value="clothing">Clothing</option>
+            <option value="Shoes">Shoes</option>
+            <option value="Bikes">Bikes</option>
+            <option value="Car">Car</option>
+            <option value="Fruits">Fruits</option>
+            <option value="Vegetables">Vegetables</option>
+            <option value="Bags">Bags</option>
+
+        </select>
+    </section>
+
+    <section class="product-listing">
+        <h2>Our Products</h2>
+        <div id="product-container">
+            <!-- Products will be inserted here dynamically -->
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 E-commerce Website</p>
+    </footer>
+
+    <script>
+        const products = [
+    { id: 1, name: 'Smartphone', category: 'electronics', price: 300, image: './Images/SmartPhone.jpg' },
+
+    { id: 2, name: 'Laptop', category: 'electronics', price: 800, image: 'images/laptops.jpg' },
+
+    { id: 3, name: 'T-shirt', category: 'clothing', price: 20, image: 'images/tshirt.jpg' },
+
+    { id: 4, name: 'Jeans', category: 'clothing', price: 40, image: 'images/jeans.jpg' },
+
+    { id: 5, name: 'Unicorn', category: 'Bikes', price: 90000, image: 'images/unicornBike.jpg' },
+
+    { id: 6, name: 'GT650', category: 'Bikes', price: 320000, image: 'images/gt650.jpg' },
+
+    { id: 7, name: 'Mango', category: 'Fruits', price: 400, image: 'images/Mango.jpg' },
+
+    { id: 8, name: 'Apple', category: 'Fruits', price: 650, image: 'images/Apple.jpg' },
+
+    { id: 9, name: 'Potato & Cabbage', category: 'Vegetables', price: 500, image: 'images/Potato and cabbage.jpg' },
+
+    { id: 10, name: 'Brinjal & Capsicum', category: 'Vegetables', price: 745, image: 'images/Brinjal & Capsicum.jpg' },
+
+    { id: 11, name: 'BMW', category: 'Car', price: 678550, image: 'images/BMW.jpg' },
+
+    { id: 12, name: 'RangeRover', category: 'Car', price: 56438550, image: 'images/rangerover.jpg' },
+
+    { id: 13, name: 'Nike Bag', category: 'Bags', price: 20500, image: 'images/Nike Bag.jpg' },
+
+    { id: 14, name: 'PUMA Bag', category: 'Bags', price: 76550, image: 'images/Puma Bag.jpg' }
+
+];
+
+let cart = [];
+
+function displayProducts(filteredProducts) {
+    const container = document.getElementById('product-container');
+    container.innerHTML = '';
+    filteredProducts.forEach(product => {
+        const productCard = document.createElement('div');
+        productCard.className = 'product-card';
+        productCard.innerHTML = `
+            <img src="${product.image}" alt="${product.name}">
+            <h3>${product.name}</h3>
+            <p>$${product.price}</p>
+            <button onclick="addToCart(${product.id})">Add to Cart</button>
+        `;
+        container.appendChild(productCard);
+    });
+}
+
+function filterProducts() {
+    const category = document.getElementById('category').value;
+    const filteredProducts = category === 'all' 
+        ? products 
+        : products.filter(product => product.category === category);
+    displayProducts(filteredProducts);
+}
+
+function addToCart(productId) {
+    const product = products.find(p => p.id === productId);
+    cart.push(product);
+    updateCartCount();
+}
+
+function updateCartCount() {
+    document.getElementById('cart-count').textContent = cart.length;
+}
+
+// Initial display of all products
+displayProducts(products);
+
+    </script>
+</body>
+</html>
